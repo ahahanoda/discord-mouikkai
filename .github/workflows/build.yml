@@ -11,15 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # sdkmanager は JDK 17 以上が必要
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
 
       - uses: android-actions/setup-android@v3
 
       - name: Install SDK packages
         run: sdkmanager "platforms;android-30" "build-tools;30.0.3"
+
+      # AGP 4.2.2 / Gradle 6.7.1 は JDK 11 でビルドする
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
 
       - uses: gradle/actions/setup-gradle@v4
         with:
